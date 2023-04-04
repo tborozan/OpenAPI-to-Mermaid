@@ -1,8 +1,7 @@
 dotnet tool restore > $null
 
 Get-ChildItem -Path .\* -Include *.json, *.yaml | ForEach-Object {
-    $sourceFile = ".\$($_.Name)"
-    $outputFile = ".\$($_.Name).md"
-    hidi show -d $sourceFile -o $outputFile
-    Write-Output "Generated --> $($outputFile)"
+    $sourceFile = $_.FullName
+    $outputFile = "$($_.FullName).md"
+    dotnet tool run hidi show -d $sourceFile -o $outputFile
 }
